@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import productApi from "./api/productApi";
+import { Routes, Route } from "react-router-dom";
+import NotFound from "../src/components/NotFound";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        const fetchProducts = async () => {
+            const productlist = await productApi.getAll();
+            console.log(productlist);
+        };
+        fetchProducts();
+    }, []);
+    return (
+        <div className="App">
+            <Routes>
+                <Route component={NotFound} />
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
